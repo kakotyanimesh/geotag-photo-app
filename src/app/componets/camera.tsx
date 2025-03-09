@@ -139,12 +139,13 @@ export default function Camera(){
             ctx?.drawImage(videoStream, 0, 0, canvas.width, canvas.height)
             ctx?.fillText(locationText, 10, 50)
             ctx?.fillText("animes", 11, 56)
+            const dataUrl = canvas.toDataURL("image/png", 0.5)
+            setImageSrc(dataUrl)
         }
         
 
 
-        const dataUrl = canvas.toDataURL("image/png", 0.5)
-        setImageSrc(dataUrl)
+        
 
     }
 
