@@ -83,9 +83,9 @@ export default function Camera(){
         
         
     // }
-    const getLocation = async () => {
+    const getLocation =  () => {
         if(navigator.geolocation){
-            navigator.geolocation.getCurrentPosition(async (position) => {
+            navigator.geolocation.getCurrentPosition( (position) => {
                 const {latitude, longitude } = position.coords
                 const timestamp = position.timestamp
                 const date = new Date(timestamp)
@@ -115,7 +115,7 @@ export default function Camera(){
             })
         }
     }
-    const clickPhoto = async () => {
+    const clickPhoto = () => {
         const videoStream = videoRef.current
         const canvas = canvasRef.current
         const ctx = canvas?.getContext("2d")
@@ -125,7 +125,7 @@ export default function Camera(){
 
         // there's no point of making it async now but if i want to fetching the real location with latitude and longitude then i have to use the async await so let the async await stays 
 
-        await getLocation()
+        getLocation()
         
 
         // console.log(location);
