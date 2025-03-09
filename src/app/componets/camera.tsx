@@ -130,7 +130,7 @@ export default function Camera(){
 
         // console.log(location);
 
-        if(location.country){
+        
             const locationText =  `
                 GPS Map Camera ${location.district}, ${location.state}, ${location.country} , 784028
                 Lat ${location.latitude?.toFixed(6)}, Long ${location.longitude?.toFixed(6)}
@@ -141,7 +141,7 @@ export default function Camera(){
             ctx?.fillText("animes", 11, 56)
             const dataUrl = canvas.toDataURL("image/png", 0.5)
             setImageSrc(dataUrl)
-        }
+        
         
 
 
