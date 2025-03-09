@@ -7,6 +7,7 @@ export default function Camera(){
     const canvasRef = useRef<HTMLCanvasElement>(null)
     const imageRef = useRef<HTMLImageElement>(null)
     const [imageSrc, setImageSrc] = useState<string | null>(null)
+    const [cameraAngle, setCameraAngle] = useState<"user" | "environment">("user")
 
 
 
@@ -17,7 +18,7 @@ export default function Camera(){
             return
         }
 
-        navigator.mediaDevices.getUserMedia({video : {facingMode : ["environment", "user"]}, audio :false})
+        navigator.mediaDevices.getUserMedia({video : {facingMode : {exact : `${cameraAngle}`}}, audio :false})
         .then((stream) => {
             videoStream.srcObject = stream
             videoStream.play()
@@ -46,6 +47,13 @@ export default function Camera(){
             <div className="flex flex-col justify-center items-center">
                 <video ref={videoRef} className="rounded-md "></video>
                 <button onClick={clickPhoto}>click me</button>
+                <button onClick={() => {
+                    if(cameraAngle === "environment"){
+                        setCameraAngle("user")
+                    } else {
+                        setCameraAngle("environment")
+                    }
+                }}>change camera </button>
             </div>
             <div>
                 <canvas ref={canvasRef} className="hidden"></canvas>
