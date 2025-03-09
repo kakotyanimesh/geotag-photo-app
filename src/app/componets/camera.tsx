@@ -8,6 +8,7 @@ export default function Camera(){
     const imageRef = useRef<HTMLImageElement>(null)
     const [imageSrc, setImageSrc] = useState<string | null>(null)
     const [cameraAngle, setCameraAngle] = useState<"user" | "environment">("user")
+    const [streaming, setStreaming] = useState<MediaStream | null>(null)
 
 
 
@@ -18,14 +19,19 @@ export default function Camera(){
             return
         }
 
+        if(streaming){
+            streaming.getTracks().forEach((track) => track.stop())
+        }
+
         navigator.mediaDevices.getUserMedia({video : {facingMode : {exact : `${cameraAngle}`}}, audio :false})
         .then((stream) => {
             videoStream.srcObject = stream
             videoStream.play()
+            setStreaming(stream)
         })
         .catch((er) => console.log(`error while streaming video ${er}`))
       
-    }, [])
+    }, [cameraAngle])
     
     const clickPhoto = () => {
         const videoStream = videoRef.current
