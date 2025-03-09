@@ -48,6 +48,15 @@ export default function Camera(){
         setImageSrc(dataUrl)
 
     }
+
+    const downloadImage = () => {
+        if(imageSrc){
+            const a = document.createElement("a")
+            a.href = imageSrc
+            a.download = "image.png"
+            a.click()
+        }
+    }
     return (
         <div>
             <div className="flex flex-col justify-center items-center">
@@ -74,6 +83,7 @@ export default function Camera(){
                     />
                     )
                 }
+                <button onClick={downloadImage}>download image</button>
                 
             </div>
         </div>
