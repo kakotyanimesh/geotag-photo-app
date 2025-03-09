@@ -17,7 +17,7 @@ export default function Camera(){
             return
         }
 
-        navigator.mediaDevices.getUserMedia({video : true, audio :false})
+        navigator.mediaDevices.getUserMedia({video : {facingMode : {exact : "environment"}}, audio :false})
         .then((stream) => {
             videoStream.srcObject = stream
             videoStream.play()
