@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react"
 
 interface ButonProps {
-    title : string,
+    title ?: string,
     onClick : (evenet : React.MouseEvent<HTMLButtonElement, MouseEvent>) => void,
     icons ?: ReactNode
 }
@@ -14,3 +14,5 @@ export default function Button({title, onClick, icons} : ButonProps){
         </button>
     )
 }
+
+
