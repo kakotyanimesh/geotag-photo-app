@@ -79,8 +79,21 @@ export default function CameraFile(){
         ctx?.drawImage(videoStream, 0, 0, canvas.width, canvas.height)
 
         if(loadedFont){
+
+            
+            // ctx.textAlign = "center"
+            /**
+             * writing text virtically isnot possible so first we have to rotate the canvas and then write on it then again we have to restore it 
+             * blog on => https://newspaint.wordpress.com/2014/05/22/writing-rotated-text-on-a-javascript-canvas/
+             */
+            ctx.save()
+            ctx.translate(10, canvas.height / 2)
+            ctx.rotate(Math.PI / 2)
             ctx.font = "48px 'customFont'"
-            ctx.fillText("animesh", 40, 60)
+            ctx.textAlign = "center"
+            // ctx.textBaseline = "middle"
+            ctx.fillText("animesh", 10, 0)
+            ctx.restore()
         } else {
             ctx.font = "48px Arial"
             ctx.fillText("gps" , 40, 40)
