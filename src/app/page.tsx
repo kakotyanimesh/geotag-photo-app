@@ -6,7 +6,7 @@ import GeotagButton from './componets/geoTagbutton';
 
 export default function Home (){
   return (
-    <div className="flex items-center justify-center min-h-screen">
+    <div className="flex items-center justify-center min-h-screen mx-5">
       <div className="flex  flex-col justify-center items-center text-center space-y-5 p-5 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-md ">
         <Camera color="#2b16ca" strokeWidth={1.75} absoluteStrokeWidth />
         <div>
