@@ -3,11 +3,34 @@ import { useRouter } from "next/navigation";
 import Button from "../componets/button";
 import Input from "../componets/inputBox";
 import { MapPinMinusInside } from 'lucide-react';
+import { useRef } from "react";
 
 
 export default function FormPage(){
+
     const router = useRouter()
+    const stateRef = useRef<HTMLInputElement>(null)
+    const districtRef = useRef<HTMLInputElement>(null)
+    const countryRef = useRef<HTMLInputElement>(null)
+    const lattitudeRef = useRef<HTMLInputElement>(null)
+    const longitudeRef = useRef<HTMLInputElement>(null)
+    const dateRef = useRef<HTMLInputElement>(null)
+    const timeRef = useRef<HTMLInputElement>(null)
     const goForPhoto = () => {
+
+        if(!districtRef.current?.value || !countryRef.current?.value || !stateRef.current?.value){
+            alert("input boxes are empty")
+            return
+        }
+
+        const date = new Date()
+        localStorage.setItem("district", districtRef.current.value)
+        localStorage.setItem("state", stateRef.current.value)
+        localStorage.setItem("country", countryRef.current.value)
+        localStorage.setItem("latitude", lattitudeRef.current?.value ? lattitudeRef.current.value : "26.690666")
+        localStorage.setItem("longitude", longitudeRef.current?.value ? longitudeRef.current.value : "92.800959")
+        localStorage.setItem("date", dateRef.current?.value ? dateRef.current.value : date.toDateString())
+        localStorage.setItem("time", timeRef.current?.value ? timeRef.current.value : "08:53 AM GMT+05:30")
         router.push("/camera")
     }
     return ( 
@@ -18,13 +41,13 @@ export default function FormPage(){
                     <MapPinMinusInside size={32} color="#020e22" strokeWidth={1.75} absoluteStrokeWidth />
                 </div>
                 <div className="grid md:grid-cols-2  gap-5">
-                    <Input type="text" placeholder="state" />
-                    <Input type="text" placeholder="district" />
-                    <Input type="text" placeholder="Country" />
-                    <Input type="number" placeholder="Latitude" />
-                    <Input type="number" placeholder="Longitude" />
-                    <Input type="date" placeholder="Date" />
-                    <Input type="time" placeholder="Time" />
+                    <Input type="text" placeholder="state" ref={stateRef} />
+                    <Input type="text" placeholder="district" ref={districtRef} />
+                    <Input type="text" placeholder="Country" ref={countryRef} />
+                    <Input type="number" placeholder="Latitude" ref={lattitudeRef} />
+                    <Input type="number" placeholder="Longitude" ref={longitudeRef} />
+                    <Input type="date" placeholder="Date" ref={dateRef}/>
+                    <Input type="time" placeholder="Time" ref={timeRef} />
                 </div>
                 <Button title="Go for Photo" onClick={goForPhoto}/>
             </div>
