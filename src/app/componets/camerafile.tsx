@@ -87,26 +87,64 @@ export default function CameraFile(){
              * blog on => https://newspaint.wordpress.com/2014/05/22/writing-rotated-text-on-a-javascript-canvas/
              */
             ctx.save()
-            ctx.translate(10, canvas.height / 2)
+            ctx.translate(130, 700)
             ctx.rotate(Math.PI / 2)
-            ctx.font = "48px 'customFont'"
+            ctx.font = "25px 'customFont'"
             ctx.textAlign = "center"
+            ctx.fillStyle = "white"
             // ctx.textBaseline = "middle"
-            ctx.fillText("animesh", 10, 0)
+            const lineHeight = 25
+            let currentY = 0
+            ctx.fillText("Sonitpur, Assam, India", 10, currentY)
+            currentY += lineHeight
+
+            
+            // ctx.font = "10px 'customFont'"
+            ctx.fillText("Borguri Amolapam Napam Road", 10, currentY)
+
+            currentY += lineHeight
+            ctx.fillText("Lat 26.690666, Long 92.800959", 10, currentY)
+            currentY += lineHeight
+            ctx.fillText("12/03/2025 08:55 AM GMT+05:30", 10, currentY)
+            currentY += lineHeight
+            ctx.fillText("NOTE : Captured by GPS CAMERA", 10, currentY)
             ctx.restore()
+            // c)tx.restore(
+
+            const googleMapIcons = new Image()
+            googleMapIcons.src = "/newmap.jpg"
+
+            googleMapIcons.onload = () => {
+                const imgX = 20
+                const imgY = currentY + 210
+                const imgWidth = 150
+                const imgHeight = 150
+
+                ctx.drawImage(googleMapIcons, imgX, imgY, imgWidth, imgHeight)
+
+                const url = canvas.toDataURL("image/png", 1)
+                setImageSrc(url)
+            
+                const a = document.createElement("a")
+                a.href = url
+                a.download = "image.png"
+                a.click()  
+            }
+            
         } else {
             ctx.font = "48px Arial"
             ctx.fillText("gps" , 40, 40)
-        }
-        const url = canvas.toDataURL("image/png", 1)
+            const url = canvas.toDataURL("image/png", 1)
         setImageSrc(url)
 
         if(imageSrc){
             const a = document.createElement("a")
-            a.href = imageSrc
+            a.href = url
             a.download = "image.png"
             a.click()
         }
+        }
+        
     }
 
     return (
