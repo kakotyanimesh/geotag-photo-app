@@ -4,13 +4,28 @@ import { SwitchCamera } from 'lucide-react';
 import { Camera } from 'lucide-react';
 
 
+
+
+
 export default function CameraFile(){
     const videoRef = useRef<HTMLVideoElement>(null)
     const canvasRef = useRef<HTMLCanvasElement>(null)
-    const [cameraAngle, setcameraAngle] = useState<"user" | "environment">("user")
+    const [cameraAngle, setcameraAngle] = useState<"user" | "environment">("environment")
     const [deviceId, setDeviceId] = useState<string>("")
     const [imageSrc, setImageSrc] = useState<string | null>(null)
+    const [loadedFont, setLoadedFont] = useState(false)
 
+
+    useEffect(() => {
+      const fontFace = new FontFace('customFont', 'url(/fonts/Geoform.otf)')
+
+      fontFace.load().then((loadedFont) => {
+        document.fonts.add(loadedFont)
+        setLoadedFont(true)
+      })
+      .catch((err) => console.log(`err while loading font ${err}`))
+    }, [])
+    
 
     useEffect(() => {
       const video = videoRef.current
@@ -29,10 +44,11 @@ export default function CameraFile(){
 
       navigator.mediaDevices.getUserMedia({video : {
         facingMode :{ exact : cameraAngle},
-        // width: { ideal: 430 },
-        // height: { ideal: 340 },
+        width: { ideal: 1280 },
+        height: { ideal: 680 },
         deviceId : deviceId
-      }, audio : false})
+      }, 
+      audio : false})
       .then((stream) => {
         video.srcObject = stream
         video.play()
@@ -54,9 +70,21 @@ export default function CameraFile(){
         const canvas = canvasRef.current
         const ctx = canvas?.getContext("2d")
 
-        if(!videoStream || !canvas){return}
+        if(!ctx){return}
 
-        ctx?.drawImage(videoStream, 0, 0, 10, 300)
+        if(!videoStream || !canvas){return}
+        canvas.width = videoStream.videoWidth;
+        canvas.height = videoStream.videoHeight;
+
+        ctx?.drawImage(videoStream, 0, 0, canvas.width, canvas.height)
+
+        if(loadedFont){
+            ctx.font = "48px 'customFont'"
+            ctx.fillText("animesh", 40, 60)
+        } else {
+            ctx.font = "48px Arial"
+            ctx.fillText("gps" , 40, 40)
+        }
         const url = canvas.toDataURL("image/png", 1)
         setImageSrc(url)
 
@@ -74,10 +102,10 @@ export default function CameraFile(){
                 {/* <h1>fake gps </h1> */}
                 <video ref={videoRef} className="rounded-md"></video>
             </div>
-            <div className="flex flex-row gap-10 justify-center items-center absolute left-1/2 bottom-30 ">
+            <div className="flex text-center justify-center gap-10 absolute bottom-30 w-full">
                 {/* <Button icons={<Camera color="#196ebe" />} onClick={() => alert("Adad")}/> */}
-                <button onClick={clickPhoto}><Camera color="#196ebe" /></button>
-                <button><SwitchCamera color="#196ebe" onClick={changeCameraAngle}/></button>
+                <button onClick={clickPhoto}><Camera color="#196ebe" size={54} /></button>
+                <button><SwitchCamera size={54} color="#196ebe" onClick={changeCameraAngle}/></button>
             </div>
             <div>
                 <canvas ref={canvasRef} className="hidden"></canvas>
