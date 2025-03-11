@@ -1,17 +1,18 @@
 # Geotag Photo App
 
-This is a simple web application built with Next.js and TypeScript that allows users to capture photos with their device's camera, embed geolocation and timestamp data directly onto the image, and download the geotagged photo.
+Tired of geotagging apps cluttered with ads? Me too! That's why I built this simple, ad-free web application using Next.js and TypeScript. It lets you capture photos with your device's camera, embed geolocation and timestamp data directly onto the image, and download the geotagged photo instantly. No nonsense, just clean functionality. Oh, and there's a little something for those who need a "fake GPS" feature too. 😉
 
 ## Features
 
--   **Camera Access:** Utilizes the browser's `getUserMedia` API to access the device's camera.
--   **Geolocation:** Embeds the user's current latitude and longitude onto the captured photo using the browser's Geolocation API.
--   **Timestamp:** Adds the current date and time to the image.
--   **Image Overlay:** Overlays the geolocation and timestamp data onto the captured photo using the HTML5 Canvas API.
--   **Download:** Allows users to download the geotagged photo as a JPEG file.
--   **TypeScript:** Built with TypeScript for enhanced type safety and maintainability.
--   **Next.js:** Uses the Next.js framework for efficient development and routing.
--   **React Icons:** Uses React Icons for the camera icon.
+-   **Camera Access:** Uses the browser's `getUserMedia` API for direct camera access.
+-   **Geolocation:** Embeds real-time latitude and longitude data onto your photos using the browser's Geolocation API.
+-   **Timestamp:** Adds the current date and time to each image.
+-   **Image Overlay:** Overlays the location and timestamp data seamlessly onto the captured photo using the HTML5 Canvas API.
+-   **Direct Download:** Provides instant download of the geotagged photo as a PNG file.
+-   **TypeScript Powered:** Built with TypeScript for enhanced type safety and maintainability.
+-   **Next.js Framework:** Leverages Next.js for efficient development and routing.
+-   **React Icons:** Uses React Icons for clean and simple interface elements.
+-   **Fake GPS (Experimental): A simple way to input custom location coordinates before capturing the image. Use with caution.
 
 ## Getting Started
 
@@ -40,9 +41,9 @@ This is a simple web application built with Next.js and TypeScript that allows u
 
 1.  Click the "Open Camera" button to access your device's camera.
 2.  Allow camera and location permissions when prompted.
-3.  Click the "Capture Photo" button to take a photo.
-4.  The captured photo will be displayed with the embedded geolocation and timestamp data.
-5.  Click the "Download Photo" button to save the geotagged image to your device.
+3.  *[If you implemented fake gps feature add this section. otherwise remove it]* If using fake GPS, enter your desired coordinates.
+4.  Click the "Capture Photo" button to take a photo.
+5.  The geotagged photo will be downloaded automatically.
 
 ## Technologies
 
@@ -62,7 +63,7 @@ This is a simple web application built with Next.js and TypeScript that allows u
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a pull request or open an issue.
+I dont think anyone wants to contribute
 
 ## License
 
@@ -70,4 +71,4 @@ This project is licensed under the [MIT License](LICENSE) - see the `LICENSE` fi
 
 ## Author
 
-[Your Name/GitHub Username]
+Animesh Kakoty
