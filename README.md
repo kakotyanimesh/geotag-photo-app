@@ -18,8 +18,8 @@ This is a simple web application built with Next.js and TypeScript that allows u
 1.  **Clone the repository:**
 
     ```bash
-    git clone [repository_url]
-    cd [repository_name]
+    git clone https://github.com/kakotyanimesh/geotag-photo-app.git
+    cd geotag-photo-app
     ```
 
 2.  **Install dependencies:**
