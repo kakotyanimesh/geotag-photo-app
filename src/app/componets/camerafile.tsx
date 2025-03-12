@@ -80,7 +80,19 @@ export default function CameraFile(){
         try {
             if (geolocation.lattitude || geolocation.longitude) {
                 const actualLocation = await axios.get(`https://nominatim.openstreetmap.org/reverse?format=geocodejson&lat=${geolocation.lattitude}&lon=${geolocation.longitude}`)
-                console.log(actualLocation.data.features[0].properties.geocoding.country);
+                // console.log(actualLocation.data.features[0].properties.geocoding);
+                const data = actualLocation.data.features[0].properties.geocoding
+                // console.log(data);
+                
+                setLocation({
+                    district : data.district,
+                    state : data.state,
+                    country : data.country,
+                    date : new Date().toLocaleDateString(),
+                    time : new Date().toLocaleTimeString() 
+                })
+                // console.log(location);
+                
             }
         } catch (error) {
             console.log(`error while fetching user data ${error}`);
@@ -119,6 +131,7 @@ export default function CameraFile(){
         const canvas = canvasRef.current
         const ctx = canvas?.getContext("2d")
 
+        console.log(location);
         
         
 
@@ -147,17 +160,17 @@ export default function CameraFile(){
             // ctx.textBaseline = "middle"
             const lineHeight = 25
             let currentY = 0
-            ctx.fillText("Sonitpur, Assam, India", 10, currentY)
+            ctx.fillText(`${location.district} ${location.state} ${location.country}`, 10, currentY)
             currentY += lineHeight
 
             
             // ctx.font = "10px 'customFont'"
-            ctx.fillText("Borguri Amolapam Napam Road", 10, currentY)
+            // ctx.fillText("Borguri Amolapam Napam Road", 10, currentY)
 
             currentY += lineHeight
-            ctx.fillText("Lat 26.690666, Long 92.800959", 10, currentY)
+            ctx.fillText(`lat ${geolocation.lattitude}, Long ${geolocation.longitude}`, 10, currentY)
             currentY += lineHeight
-            ctx.fillText("12/03/2025 08:55 AM GMT+05:30", 10, currentY)
+            ctx.fillText(`${location.date} ${location.time}`, 10, currentY)
             currentY += lineHeight
             ctx.fillText("NOTE : Captured by GPS CAMERA", 10, currentY)
             ctx.restore()
