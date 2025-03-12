@@ -56,10 +56,10 @@ export default function CameraFile(){
       }).catch((er) => console.log(`errr while getting device id ${er}`))
 
       navigator.mediaDevices.getUserMedia({video : {
-        facingMode :{ exact : cameraAngle},
+        facingMode : cameraAngle,
         width: { ideal: 1280 },
         height: { ideal: 680 },
-        deviceId : deviceId
+        deviceId : deviceId ? deviceId : undefined
       }, 
       audio : false})
       .then((stream) => {
@@ -218,7 +218,7 @@ export default function CameraFile(){
                 {/* <h1>fake gps </h1> */}
                 <video ref={videoRef} className="rounded-md"></video>
             </div>
-            <div className="flex text-center justify-center gap-10 absolute bottom-30 w-full">
+            <div className="flex text-center justify-center gap-10 absolute bottom-30 md:bottom-10 px-10 md:px-2 rounded-2xl left-5 bg-red-700">
                 {/* <Button icons={<Camera color="#196ebe" />} onClick={() => alert("Adad")}/> */}
                 <button onClick={clickPhoto}><Camera color="#196ebe" size={54} /></button>
                 <button><SwitchCamera size={54} color="#196ebe" onClick={changeCameraAngle}/></button>
@@ -229,3 +229,8 @@ export default function CameraFile(){
         </div>
     )
 }
+
+
+/**
+ * with if else or switch cases we have to determine the device and then we have to write the codes for text 
+ */
