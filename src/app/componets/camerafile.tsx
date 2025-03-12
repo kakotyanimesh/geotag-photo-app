@@ -2,6 +2,8 @@
 import { useEffect, useRef, useState } from "react";
 import { SwitchCamera } from 'lucide-react';
 import { Camera } from 'lucide-react';
+import { GeoLocationType, LocationTypes } from "@/types/types";
+import axios from "axios"
 
 
 
@@ -14,6 +16,17 @@ export default function CameraFile(){
     const [deviceId, setDeviceId] = useState<string>("")
     const [imageSrc, setImageSrc] = useState<string | null>(null)
     const [loadedFont, setLoadedFont] = useState(false)
+    const [location, setLocation] = useState<LocationTypes>({
+        district : "",
+        state : "",
+        country : "",
+        date : "",
+        time : ""
+    })
+    const [geolocation, setGeolocation] = useState<GeoLocationType>({
+        lattitude : null,
+        longitude : null
+    })
 
 
     useEffect(() => {
@@ -55,8 +68,44 @@ export default function CameraFile(){
       })
       .catch((err) => console.log(`err at video stream ${err}`))
       
-    }, [cameraAngle, deviceId])
+    }, [cameraAngle])
 
+    
+
+    // const getactualLocation = async () => {
+
+    // }
+
+    const getactualLocation = async () => {
+        try {
+            if (geolocation.lattitude || geolocation.longitude) {
+                const actualLocation = await axios.get(`https://nominatim.openstreetmap.org/reverse?format=geocodejson&lat=${geolocation.lattitude}&lon=${geolocation.longitude}`)
+                console.log(actualLocation.data.features[0].properties.geocoding.country);
+            }
+        } catch (error) {
+            console.log(`error while fetching user data ${error}`);
+            
+        }
+    }
+
+    useEffect(() => {
+        navigator.geolocation.getCurrentPosition((position) => {
+            setGeolocation({
+                lattitude : position.coords.latitude,
+                longitude : position.coords.longitude
+            })
+        })
+
+    }, [])
+
+    useEffect(() => {
+      getactualLocation()
+    }, [geolocation])
+    
+    
+
+
+    
     const changeCameraAngle = () => {
         if(cameraAngle === "environment"){
             setcameraAngle("user")
@@ -65,10 +114,13 @@ export default function CameraFile(){
         }
     }
 
-    const clickPhoto = () => {
+    const clickPhoto = async () => {
         const videoStream = videoRef.current
         const canvas = canvasRef.current
         const ctx = canvas?.getContext("2d")
+
+        
+        
 
         if(!ctx){return}
 
